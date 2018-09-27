@@ -7,11 +7,11 @@
             <b-col  cols="3" class="p-1 bg-dark text-white text-center">Email</b-col>
         </b-row>
         <div v-for="affiliate in affiliates" v-bind:key="affiliate.cpf">
-            <b-row>
+            <b-row v-bind:class="{ 'text-danger' : color }">
                 <b-col cols="3" class="text-center">{{ affiliate.name }}</b-col>
                 <b-col cols="3" class="text-center">{{ affiliate.cpf }}</b-col>
                 <b-col cols="3" class="text-center">{{ affiliate.phone }}</b-col>
-                <b-col cols="3" class="text-center">{{ affiliate.Email }}</b-col>
+                <b-col cols="3" class="text-center">{{ affiliate.email }}</b-col>
             </b-row>       
         </div>                     
     </b-container>
@@ -19,10 +19,14 @@
 <script>
 
 export default {
-    name: 'grid-players',
+    name: 'grid-affiliates',
     props: {
         affiliates :{
             type: Array,
+            required: true
+        }, 
+        color :{
+            type: Boolean,
             required: true
         }
     }
