@@ -1,5 +1,5 @@
 <template>
-    <b-modal id="modal" ref="modal" title="Cadastrar Filiado" @ok="handleOk">
+    <b-modal id="modal" ref="modal" title="Cadastrar Filiado" @ok="handleOk" :ok-disabled="$v.affiliate.$invalid">
         <b-form>
             <b-form-group id="nameGroupInput" 
                            label="Nome :"
@@ -21,11 +21,24 @@
                               type="text"
                               v-model="affiliate.cpf"
                               v-mask="'###.###.###-##'"
-                              :state="!$v.affiliate.cpf.$invalid"           
+                              :state="!$v.affiliate.cpf.$invalid"
                               placeholder="Digite o cpf">
                 </b-form-input>
                 <b-form-invalid-feedback>
-                    Cpf é obrigatório e deve estar no formato 000.000.000-00.
+                    CPF é obrigatório e deve estar no formato 000.000.000-00.
+                </b-form-invalid-feedback>
+            </b-form-group>
+            <b-form-group id="emailGroupInput" 
+                           label="Email :"
+                           label-for="emailInput">
+                <b-form-input id="emailInput"
+                              type="email"
+                              v-model="affiliate.email"
+                              :state="!$v.affiliate.email.$invalid"
+                              placeholder="Digite o email">
+                </b-form-input>
+                <b-form-invalid-feedback>
+                    O email é obrigatório.
                 </b-form-invalid-feedback>
             </b-form-group>
             <b-form-group id="phoneGroupInput" 
@@ -35,17 +48,7 @@
                               type="text"
                               v-model="affiliate.phone"
                               v-mask="'(##) ####-####'"
-                              required           
                               placeholder="Digite o telefone">
-                </b-form-input>
-            </b-form-group>
-            <b-form-group id="emailGroupInput" 
-                           label="Email :"
-                           label-for="emailInput">
-                <b-form-input id="emailInput"
-                              type="text"
-                              v-model="affiliate.email"
-                              placeholder="Digite o email">
                 </b-form-input>
             </b-form-group>
         </b-form>    
@@ -84,7 +87,12 @@ export default {
                 maxLength: maxLength(40)
             },
             cpf :{
-                required
+                required,
+                minLength: minLength(14)
+            }, 
+            email : {
+                required,
+                minLength: minLength(7)
             }
         }
     },
