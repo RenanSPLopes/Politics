@@ -45,7 +45,7 @@
           </b-form-textarea>
         </b-form-group>
         <div class="container">
-          <b-button type="submit" class="ml-5 mr-2" variant="primary"> Cadastrar </b-button>
+          <b-button type="submit" class="ml-5 mr-2" variant="primary" @click="addPoliticalParty"> Cadastrar </b-button>
           <b-button type="reset" variang="danger"> Cancelar </b-button>
         </div>
     </b-form>
@@ -53,6 +53,8 @@
 </template>
 
 <script>
+
+import axios from 'axios';
 
 export default {
   name: 'political-party',
@@ -65,6 +67,23 @@ export default {
         description: ''
       }
     };
+  },
+  methods : {
+      addPoliticalParty(){
+         axios.post(`http://localhost:8080/api/politicalParty`, 
+          JSON.stringify(this.politicalParty)
+        )
+        .then(response =>{
+            this.politicalParty.name = '';
+            this.politicalParty.abbreviation = '';
+            this.politicalParty.legend = '';
+            this.politicalParty.description = '';
+        })
+        .catch(e => {
+          console.log(e);
+          alert("Erro ao chamar api de cadastro");
+        })
+      }
   }
 }
 </script>

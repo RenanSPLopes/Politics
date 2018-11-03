@@ -1,6 +1,11 @@
 <template>
     <b-modal id="modal" ref="modal" title="Cadastrar Filiado" @ok="handleOk" :ok-disabled="$v.affiliate.$invalid">
         <b-form>
+            <b-form-group id="politicalPartyGroupInput">
+                <b-form-select id="politicalParty-select">
+                        
+                </b-form-select>
+            </b-form-group>    
             <b-form-group id="nameGroupInput" 
                            label="Nome :"
                            label-for="nameInput">
